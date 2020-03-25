@@ -8,10 +8,13 @@ package Entities.Items;
 
 import Entities.Creatures.Player;
 import Entities.Entity;
+import Entities.EntityManager;
 import Graficos.Assets;
 import Main.Game;
+import Main.Handler;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 /**
  *
@@ -23,10 +26,15 @@ public class Bullet extends Entity {
     private int Y;
     private int BulletSpeed=8;
     
-    public Bullet(Game game, float x, float y, int width, int height) {
-        super(game, x, y, width, height);
+    public Bullet(Handler handler,EntityManager manager, float x, float y, int width, int height) {
+        super(handler,manager, x, y, width, height);
         X=(int) (x+Player.DEFAULT_CREATURE_WIDTH/2 );
         Y=(int) ( Player.DEFAULT_CREATUR_HEIGHT/2 + y );
+        
+        bounds.x=2;
+        bounds.y=0;
+        bounds.width=this.height;
+        bounds.height=this.width;
     }
     
     
@@ -35,26 +43,20 @@ public class Bullet extends Entity {
     public void update() {
        
         X+=BulletSpeed;
-        
+        checkAttacks();
       
     }
 
     @Override
     public void render(Graphics g) {
-        if(X <= game.getWidth()){
+        if(X <= handler.getGame().getWidth()){
          g.drawImage(Assets.misil, X, Y, null);
         }
     }
 
     
     
-    public boolean isShoot(){
-        if(x>=game.getWidth()){
-            return false;
-        }else{
-            return true;
-        }
-    }
+    
 
     public int getBulletSpeed() {
         return BulletSpeed;
@@ -63,6 +65,23 @@ public class Bullet extends Entity {
     public void setBulletSpeed(int BulletSpeed) {
         this.BulletSpeed = BulletSpeed;
     }
+
+    @Override
+    public void die() {
+        
+    }
     
+    public void checkAttacks(){
+        Rectangle cb=getCollisionBounds(0,0);
+        
+        for (Entity e : manager.getEntities()) {
+            if(!e.equals(this) && !(e instanceof Player)){
+                if(e.getCollisionBounds(0, 0).intersects(cb)){
+                    e.hurt(1);
+                    this.hurt(5);
+                }
+            }
+        }
+    }
     
 }

@@ -6,13 +6,14 @@
 package Main;
 
 
+import Entities.EntityManager;
 import Input.KeyManager;
 /**
  *
  * @author German David
  */
 public class Handler {
-    
+    private EntityManager manager;
     private Game game;
     
     public Handler (Game game){

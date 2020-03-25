@@ -6,7 +6,9 @@
 package Entities.Creatures;
 
 import Entities.Entity;
+import Entities.EntityManager;
 import Main.Game;
+import Main.Handler;
 import java.awt.Graphics;
 
 /**
@@ -25,8 +27,8 @@ public abstract class Creature extends Entity{
     public static final int DEFAULT_CREATUR_HEIGHT=110;
     
     
-    public Creature(Game game,float x, float y,int width, int height) {
-        super(game,x,y,width,height);
+    public Creature(Handler handler,EntityManager manager,float x, float y,int width, int height) {
+        super(handler,manager,x,y,width,height);
         health=DEFAULT_HEALTH;
         speed=DEFAULT_SPEED;
     }

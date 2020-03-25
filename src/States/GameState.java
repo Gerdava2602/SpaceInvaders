@@ -6,37 +6,43 @@
 package States;
 
 import Entities.Creatures.Player;
+import Entities.EntityManager;
 import Entities.Items.Bullet;
 
 import Graficos.Assets;
 import Main.Game;
+import Main.Handler;
+import World.World;
 import java.awt.Graphics;
 
 
 public class GameState extends State{
 
-    private Player player;
-    private Bullet[] bulls;
     
-    public GameState(Game game) {
-        super(game);
-        player= new Player( this.game,100,100);
+    private EntityManager manager;
+    private Player player;
+    private World world;
+    
+    public GameState(Game game,Handler handler) {
+        super(game,handler);
         
+        manager= new EntityManager (handler,player);
+        
+        world = new World(manager,handler);
     }
 
     
     @Override
     public void update() {
-        player.update();
+        world.update();
+        manager.update();
     }
 
     @Override
     public void render(Graphics g) {
         g.drawImage(Assets.background, 0, 0,800,600, null);
-        player.render(g);
-        
+        world.render(g);
+        manager.render(g);
     }
 
-    
-    
 }

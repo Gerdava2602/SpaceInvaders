@@ -7,6 +7,8 @@ package Main;
 
 import Graficos.Imageloader;
 import Display.Display;
+import Entities.Creatures.Player;
+import Entities.EntityManager;
 import Graficos.Assets;
 import Graficos.SpriteSheet;
 import States.GameState;
@@ -55,14 +57,20 @@ public class Game implements Runnable {
     
     //Input
     private KeyManager KeyManager;
-    
+    //Handler
+    private Handler handler;
+    //
+    private Player player;
     
     //Constructor
     public Game(String titulo, int width, int height) {
         this.height = height;
         this.width = width;
         this.titulo = titulo;
+        
         KeyManager= new KeyManager();
+        handler= new Handler(this);
+       
     }
 
     //Inicio
@@ -76,8 +84,8 @@ public class Game implements Runnable {
         
 
 
-        gameState= new GameState(this);
-        menuState= new MenuState(this);
+        gameState= new GameState(this,handler);
+        menuState= new MenuState(this,handler);
         State.setState(gameState);
     }
 
@@ -123,7 +131,7 @@ public class Game implements Runnable {
         init();
 
         //frames per second
-        int fps = 100;
+        int fps = 60;
         //there are 1 million nanoseconds on a second
         double timePerUpd = 1000000000 / fps;
 
@@ -161,6 +169,22 @@ public class Game implements Runnable {
         }
 
         stop();
+    }
+
+    public State getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(State gameState) {
+        this.gameState = gameState;
+    }
+
+    public State getSettingState() {
+        return SettingState;
+    }
+
+    public void setSettingState(State SettingState) {
+        this.SettingState = SettingState;
     }
     
     public KeyManager getKeyManager(){

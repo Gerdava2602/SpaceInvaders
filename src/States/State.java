@@ -5,7 +5,9 @@
  */
 package States;
 
+import Entities.EntityManager;
 import Main.Game;
+import Main.Handler;
 import java.awt.Graphics;
 
 /**
@@ -29,9 +31,12 @@ public abstract class State {
     public abstract void update();
     
    protected Game game;
-
-    public State(Game game) {
+   protected EntityManager manager;
+   protected Handler handler;
+   
+    public State(Game game,Handler handler) {
         this.game = game;
+        this.handler=handler;
     }
    
    
