@@ -49,14 +49,10 @@ public class Bullet extends Entity {
 
     @Override
     public void render(Graphics g) {
-        if(X <= handler.getGame().getWidth()){
+        
          g.drawImage(Assets.misil, X, Y, null);
-        }
+        
     }
-
-    
-    
-    
 
     public int getBulletSpeed() {
         return BulletSpeed;
@@ -72,13 +68,15 @@ public class Bullet extends Entity {
     }
     
     public void checkAttacks(){
-        Rectangle cb=getCollisionBounds(0,0);
+        Rectangle cb=getCollisionBounds();
+        System.out.println(""+cb.x+" "+cb.y+" "+cb.width+" "+cb.height);
         
         for (Entity e : manager.getEntities()) {
-            if(!e.equals(this) && !(e instanceof Player)){
-                if(e.getCollisionBounds(0, 0).intersects(cb)){
+            if(!(e instanceof Bullet) && !(e instanceof Player)){
+                if(e.getCollisionBounds().intersects(cb)){
                     e.hurt(1);
-                    this.hurt(5);
+                    this.setActive(false);
+                    System.out.println("Me golpeé con "+e);
                 }
             }
         }

@@ -53,8 +53,8 @@ public abstract class Entity {
     
     public abstract void render(Graphics g);
     
-    public Rectangle getCollisionBounds(float xOffset,float yOffset){
-        return new Rectangle ((int)(x+bounds.x+xOffset),(int)(y+bounds.y+yOffset),bounds.width,bounds.height);
+    public Rectangle getCollisionBounds(){
+        return new Rectangle ((int)(x+bounds.x),(int)(y+bounds.y),bounds.width,bounds.height);
     }
     
     //GETTERS AND SETTERS

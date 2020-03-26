@@ -14,6 +14,7 @@ import Main.Handler;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,7 +22,7 @@ import java.awt.image.BufferedImage;
  */
 public class Player extends Creature {
 
-    public Bullet[] bullets= new Bullet[100];
+    public Bullet bullet;
     public static int bullcount = 0;
     private long clock,now=0;
     private float ShootSpeed= 0.3f;
@@ -40,12 +41,7 @@ public class Player extends Creature {
         clock=System.nanoTime();
         getInput();
         move();
-        for (int i = 0; i <100; i++) {
-            //condición para que no se borren las balas ya hechas
-            if(bullets[i] != null ){
-            bullets[i].update();
-            }
-        }
+
         
     }
 
@@ -57,7 +53,7 @@ public class Player extends Creature {
             x=-bounds.width;
         if(x+bounds.width>handler.getGame().getWidth())
             x=handler.getGame().getWidth()-bounds.width;
-            y+=Ymove;
+             y+=Ymove;
         if(y<0)
             y=1;
         if(y+bounds.height>handler.getGame().getHeight())
@@ -83,13 +79,7 @@ public class Player extends Creature {
             Xmove = -speed;
         }
         if (handler.getGame().getKeyManager().space && canShoot(clock-now)) {
-            bullets[bullcount] = new Bullet(this.handler,manager, x, y, Player.DEFAULT_CREATURE_WIDTH, Player.DEFAULT_CREATUR_HEIGHT);
-            manager.addEntity(bullets[bullcount]);
-            bullcount++;
-            if(bullcount==100){
-                bullcount=0;
-            }
-            System.out.println(""+bullcount);
+            manager.addEntity(new Bullet (handler,manager,this.getX(),this.getY(),100,100));  
         }
 
     }
@@ -99,11 +89,7 @@ public class Player extends Creature {
 
         g.drawImage(getCurrentImage(), (int) (x), (int) (y ), null);
         
-        for (int i = 0; i < 100; i++) {
-           if(bullets[i]!= null){ 
-            bullets[i].render(g);
-           }
-        }
+       
         
     }
     

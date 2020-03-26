@@ -34,9 +34,9 @@ public class World {
             if(e instanceof Asteroid)
                 j++;
         }
-        if(j<5){
-            for (int i=j; i < 5; i++) {
-                manager.addEntity(new Asteroid(handler,manager,810, (float) (Math.random()*550+50),100,100));
+        if(j<8){
+            for (int i=j; i <= 8; i++) {
+                manager.addEntity(new Asteroid(handler,manager,800, (float) (Math.random()*550+50),100,100));
             }
         }
         manager.update();

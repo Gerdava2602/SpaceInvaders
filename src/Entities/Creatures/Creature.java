@@ -29,7 +29,6 @@ public abstract class Creature extends Entity{
     
     public Creature(Handler handler,EntityManager manager,float x, float y,int width, int height) {
         super(handler,manager,x,y,width,height);
-        health=DEFAULT_HEALTH;
         speed=DEFAULT_SPEED;
     }
 
@@ -52,14 +51,6 @@ public abstract class Creature extends Entity{
 
     public void setYmove(float Ymove) {
         this.Ymove = Ymove;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
     }
 
     public float getSpeed() {

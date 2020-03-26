@@ -23,9 +23,9 @@ public class Asteroid extends Creature{
     public Asteroid(Handler handler,EntityManager manager, float x, float y, int width, int height) {
         super(handler,manager, x, y,width,height);
         
-         this.width=(int)(Math.random()*100+30);
+         this.width=(int)(Math.random()*70+30);
          this.height=this.width;
-         Xmove=(int)(Math.random()*2+1);
+         Xmove=(int)(Math.random()*3+1);
          
          bounds.x=0;
          bounds.y=0;
@@ -55,11 +55,12 @@ public class Asteroid extends Creature{
     }
     
     public void checkAttacks(){
-        Rectangle cb= getCollisionBounds(0,0);
+        Rectangle cb= getCollisionBounds();
+        
         
         for (Entity e : manager.getEntities() ) {
             if(!e.equals(this)){ 
-                if(e.getCollisionBounds(0, 0).intersects(cb)){
+                if(e.getCollisionBounds().intersects(cb)){
                     //Por si son asteorides, se destruye el mas pequeño
                     if((e instanceof Asteroid )){
                        if(e.getWidth()*e.getHeight()>this.getWidth()*this.getHeight())
@@ -68,6 +69,7 @@ public class Asteroid extends Creature{
                                 e.setActive(false);
                     }else{
                         //Si no es un asteroide, le hace 5 de daño
+                        System.out.println("Golpeó con"+e);
                         e.hurt(5);
                         this.setActive(false);
                     }

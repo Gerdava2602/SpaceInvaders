@@ -47,11 +47,11 @@ public class EntityManager {
         for (int i = 0; i < entities.size(); i++) {
             Entity e= entities.get(i);
             e.update();
-            if(!e.isActive() || e.getX()<=-e.getWidth() || e.getX()>=handler.getGame().getWidth()+e.getWidth())
+            if(!e.isActive() || e.getX()<-e.getWidth() || e.getX()>handler.getGame().getWidth())
                 entities.remove(e);
         }
         entities.sort(renderSorter);
-        System.out.println("Tu puntaje"+Score);
+        
     }
 
     public int getScore() {
